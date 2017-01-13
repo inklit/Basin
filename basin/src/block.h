@@ -24,7 +24,7 @@
 #define BLK_DIRT 48
 #define BLK_DIRT_COARSE 49
 #define BLK_DIRT_PODZOL 50
-#define BLK_STONEBRICK 64
+#define BLK_COBBLESTONE 64
 #define BLK_WOOD_OAK 80
 #define BLK_WOOD_SPRUCE 81
 #define BLK_WOOD_BIRCH 82
@@ -71,12 +71,14 @@
 #define BLK_LEAVES_SPRUCE 289
 #define BLK_LEAVES_BIRCH 290
 #define BLK_LEAVES_JUNGLE 291
+#define BLK_LEAVES_OAK_2 292
 #define BLK_LEAVES_SPRUCE_1 293
 #define BLK_LEAVES_BIRCH_1 294
 #define BLK_LEAVES_JUNGLE_1 295
 #define BLK_LEAVES_SPRUCE_2 297
 #define BLK_LEAVES_BIRCH_2 298
 #define BLK_LEAVES_JUNGLE_2 299
+#define BLK_LEAVES_OAK_3 300
 #define BLK_LEAVES_SPRUCE_3 301
 #define BLK_LEAVES_BIRCH_3 302
 #define BLK_LEAVES_JUNGLE_3 303
@@ -280,6 +282,7 @@
 #define BLK_PUMPKINSTEM_1 1680
 #define BLK_VINE 1696
 #define BLK_FENCEGATE 1712
+#define BLK_FENCEGATE_14 1712
 #define BLK_STAIRSBRICK 1728
 #define BLK_STAIRSSTONEBRICKSMOOTH 1744
 #define BLK_MYCEL 1760
@@ -399,8 +402,11 @@
 #define BLK_THINSTAINEDGLASS_BLACK 2575
 #define BLK_LEAVES_ACACIA 2576
 #define BLK_LEAVES_BIG_OAK 2577
+#define BLK_LEAVES_ACACIA_1 2580
 #define BLK_LEAVES_BIG_OAK_1 2581
+#define BLK_LEAVES_ACACIA_2 2584
 #define BLK_LEAVES_BIG_OAK_2 2585
+#define BLK_LEAVES_ACACIA_3 2588
 #define BLK_LEAVES_BIG_OAK_3 2589
 #define BLK_LOG_ACACIA_1 2592
 #define BLK_LOG_BIG_OAK_1 2593
@@ -586,6 +592,7 @@ struct block_info {
 		void (*dropItems)(struct world* world, block blk, int32_t x, int32_t y, int32_t z, int fortune);
 		int (*canBePlaced)(struct world* world, block blk, int32_t x, int32_t y, int32_t z);
 		void (*randomTick)(struct world* world, struct chunk* ch, block blk, int32_t x, int32_t y, int32_t z);
+		int (*scheduledTick)(struct world* world, block blk, int32_t x, int32_t y, int32_t z);
 		struct boundingbox* boundingBoxes;
 		size_t boundingBox_count;
 		float hardness;
@@ -626,5 +633,7 @@ void onBlockDestroyed_chest(struct world* world, block blk, int32_t x, int32_t y
 void onBlockDestroyed_furnace(struct world* world, block blk, int32_t x, int32_t y, int32_t z);
 
 int canBePlaced_reeds(struct world* world, block blk, int32_t x, int32_t y, int32_t z);
+
+void randomTick_sapling(struct world* world, struct chunk* chunk, block blk, int32_t x, int32_t y, int32_t z);
 
 #endif /* BLOCK_H_ */
